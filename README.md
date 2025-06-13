@@ -1,50 +1,39 @@
-# beeMôn:
+# beeMôn Scraper Challenge
 
-Na beeMôn criamos muitos sistemas de raspagem de dados e buscamos todos os dias inovação na analise dos dados. Este desafio esta aberto para todos que quiserem abrir um fork e submeter suas ideias de tecnologia.
+Automated data scraping engine built for the beeMôn technical challenge. It supports both command-line execution and scheduled tasks for collecting structured data from various sources.
 
-## Desafio:
-Escolher uma dos sites abaixo para fazer o desafio
+## Features
 
-- [quotes.toscrape](https://quotes.toscrape.com/)
-- [imdb.com](https://www.imdb.com/chart/top/?ref_=nv_mv_250)
+- Scrapes from [quotes.toscrape.com](http://quotes.toscrape.com) and IMDb
+- Outputs JSON and CSV formats
+- Stores data in MongoDB and local files
+- Screenshot capture of scraped pages
+- Optional email/Telegram notifications
+- Dynamic CLI scheduling (`--at`)
+- Pandas dataframe summaries
+- Fully dockerized and tested (100% coverage)
 
-### Minimo Entregável:
+## Running Tests
 
-- Buscar dados de forma automatizada(script de linha de comando ou interface clicavel)
-- Padronizar os retornos de forma estruturada (json/csv)
-- Sistema de logs de para acompanhamento da execução
-- Ter um prova da consulta (Screenshot)
+poetry run pytest --cov=app --cov-report=term-missing
+poetry run coverage-badge -o coverage.svg -f
 
-### Pontos Extra para:
+Coverage
+How to Run
 
-- Armazenamento dos resultados em um banco relacional ou não relacional
-- Fazer um dataframe que possibilite visualizar os resultados via pandas
-- Trazer resultados de forma dinamica sem fixar caminhos no `xpath`
-- Dockerizar a aplicação
-- Conseguir agendar uma execução para um dia e horario.
+# Scrape quotes to JSON
+docker compose -f docker/dev.docker-compose.yml run app scrape quotes --format json
 
-### Libs sugeridas:
+# Show IMDB data as table
+docker compose -f docker/dev.docker-compose.yml run app show imdb
 
- - Selenium 
- - Scrapy
- - Pandas
- - Requests
- - BeautifulSoup 
+# Schedule quotes scraping
+docker compose -f docker/dev.docker-compose.yml run app schedule quotes --at 2025-06-13T08:00
 
+Docker Setup
 
-### O que iremos avaliar:
+# Start dev container
+docker compose -f docker/dev.docker-compose.yml up
 
-- Conhecimento em HTML
-- Conhecimento em fluxo de request/response
-- Conhecimento em extração de dados
-- Conhecimento em base64
-- Boas práticas de programação
-- Utilização de bibliotecas de terceiros
-- Documentação
-- Criatividade
-- Cobertura de testes
-- Tempo de execução do código
-- Versionamento do código
-
-
-
+# Production build
+docker compose -f docker/prod.docker-compose.yml up --build
