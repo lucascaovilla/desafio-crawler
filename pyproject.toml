@@ -1,0 +1,35 @@
+[tool.poetry]
+name = "desafio-crawler"
+version = "0.1.0"
+description = "Web scraping challenge project for beeMôn"
+authors = ["Lucas Grisa Caovilla <lucasgrisac@gmail.com>"]
+packages = [{ include = "app" }]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.13.4"
+requests = "*"
+beautifulsoup4 = "*"
+selenium = "*"
+pandas = "*"
+pymongo = "*"
+apscheduler = "*"
+loguru = "*"
+python-dotenv = "*"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "*"
+coverage = "*"
+pytest-cov = "*"
+black = "*"
+flake8 = "*"
+mypy = "*"
+coverage-badge = "^1.1.2"
+
+[tool.poetry.scripts]
+desafio-crawler = "app.cli:main"
+
+[tool.pytest.ini_options]
+filterwarnings = [
+    "ignore:Can not find any timezone configuration.*:UserWarning"
+]
