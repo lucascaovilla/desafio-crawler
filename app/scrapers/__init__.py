@@ -1,0 +1,1 @@
+from .quotes_scraper import scrape as quotes_scrape
