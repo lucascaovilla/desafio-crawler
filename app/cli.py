@@ -29,6 +29,7 @@ def main():
 
     show_parser = subparsers.add_parser("show")
     show_parser.add_argument("site", choices=["quotes", "imdb"])
+    show_parser.add_argument("--all", action="store_true", help="Show all data instead of just the first few rows")
 
     schedule_parser = subparsers.add_parser("schedule")
     schedule_parser.add_argument("site", choices=["quotes", "imdb"])

@@ -48,7 +48,15 @@ def show_data(args):
     try:
         data = db.fetch_all(args.site)
         df = pd.DataFrame(data)
-        print(df.head())
+
+        if args.all:
+            pd.set_option("display.max_rows", None)
+            pd.set_option("display.max_colwidth", None)
+            pd.set_option("display.width", None)
+            print(df.head(len(df)))
+        else:
+            print(df.head())
+
         logger.info(f"Displayed data for site: {args.site}")
     except Exception as e:
         logger.exception("Failed to show data")
