@@ -16,6 +16,7 @@ pymongo = "*"
 apscheduler = "*"
 loguru = "*"
 python-dotenv = "*"
+undetected-chromedriver = "^3.5.5"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "*"

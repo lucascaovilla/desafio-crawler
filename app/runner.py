@@ -1,3 +1,5 @@
+import os
+import datetime
 from app.scrapers import quotes_scraper, imdb_scraper
 from app.storage import file, db
 from app.utils.screenshot import take_screenshot
@@ -23,10 +25,14 @@ def run_scraper(args):
 
         logger.info(f"Scraped {len(data)} items from {site}")
 
+        timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
+
         if fmt == "json":
-            file.save_as_json(data, output or f"{site}.json")
+            os.makedirs("data/json", exist_ok=True)
+            file.save_as_json(data, output or f"data/json/{site}_{timestamp}.json")
         elif fmt == "csv":
-            file.save_as_csv(data, output or f"{site}.csv")
+            os.makedirs("data/csv", exist_ok=True)
+            file.save_as_csv(data, output or f"data/csv/{site}_{timestamp}.csv")
         logger.info(f"Saved data in {fmt.upper()} format")
 
         if not getattr(args, "no_screenshot", False):
