@@ -1,5 +1,5 @@
 services:
-  app:
+  dev:
     build:
       context: ..
       dockerfile: docker/dev.Dockerfile
@@ -10,19 +10,19 @@ services:
     env_file:
       - ../.env
     depends_on:
-      - mongo
+      - mongo-dev
     # Uncomment the following line to keep the container running
     # command: >
     #   ash -c '
     #     /usr/bin/tail -f /dev/null
     #   '
 
-  mongo:
+  mongo-dev:
     image: mongo:latest
     ports:
       - "27017:27017"
     volumes:
-      - mongo-data:/data/db
+      - mongo-dev-data:/data/db
 
 volumes:
-  mongo-data:
+  mongo-dev-data:

@@ -15,25 +15,36 @@ Automated data scraping engine built for the beeMôn technical challenge. It sup
 
 ## Running Tests
 
-poetry run pytest --cov=app --cov-report=term-missing
-poetry run coverage-badge -o coverage.svg -f
+docker compose -f docker/test.docker-compose.yml run test pytest --cov=app --cov-report=term-missing
 
-Coverage
-How to Run
+### Generating Test Coverage Badge
 
-# Scrape quotes to JSON
-docker compose -f docker/dev.docker-compose.yml run app scrape quotes --format json
+docker compose -f docker/test.docker-compose.yml run test coverage-badge -o coverage.svg -f
 
-# Show IMDB data as table
-docker compose -f docker/dev.docker-compose.yml run app show imdb --all
 
-# Schedule quotes scraping
-docker compose -f docker/dev.docker-compose.yml run app schedule quotes --at 2025-06-13T08:00 --notify-to your@email.example
+![Coverage](coverage.svg)
 
-Docker Setup
 
-# Start dev container
-docker compose -f docker/dev.docker-compose.yml up
+# How to Run
 
-# Production build
-docker compose -f docker/prod.docker-compose.yml up --build
+## Dev
+
+### Scrape quotes to JSON
+docker compose -f docker/dev.docker-compose.yml run dev scrape quotes --format json
+
+### Show IMDB data as table
+docker compose -f docker/dev.docker-compose.yml run dev show imdb --all
+
+### Schedule quotes scraping
+docker compose -f docker/dev.docker-compose.yml run dev schedule quotes --at 2025-06-13T08:00 --notify-to your@email.example
+
+## Prod
+
+### Scrape quotes to JSON
+docker compose -f docker/prod.docker-compose.yml run prod scrape quotes --format json
+
+### Show IMDB data as table
+docker compose -f docker/prod.docker-compose.yml run prod show imdb --all
+
+### Schedule quotes scraping
+docker compose -f docker/prod.docker-compose.yml run prod schedule quotes --at 2025-06-13T08:00 --notify-to your@email.example
