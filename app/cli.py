@@ -35,6 +35,9 @@ def main():
     schedule_parser.add_argument("site", choices=["quotes", "imdb"])
     schedule_parser.add_argument("--at", help="Time to run job (ISO format)", required=True)
     schedule_parser.add_argument("--dry-run", action="store_true", help="Print schedule plan without executing")
+    schedule_parser.add_argument("--notify-to", help="Recipient for notifications")
+    schedule_parser.add_argument("--format", choices=["json", "csv"], default="json", help="Output format")
+    schedule_parser.add_argument("--output", help="Path to output file")
 
     args = parser.parse_args()
     dispatch(args)

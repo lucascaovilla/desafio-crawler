@@ -28,7 +28,7 @@ docker compose -f docker/dev.docker-compose.yml run app scrape quotes --format j
 docker compose -f docker/dev.docker-compose.yml run app show imdb --all
 
 # Schedule quotes scraping
-docker compose -f docker/dev.docker-compose.yml run app schedule quotes --at 2025-06-13T08:00
+docker compose -f docker/dev.docker-compose.yml run app schedule quotes --at 2025-06-13T08:00 --notify-to your@email.example
 
 Docker Setup
 

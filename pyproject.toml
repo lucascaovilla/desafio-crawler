@@ -17,6 +17,7 @@ apscheduler = "*"
 loguru = "*"
 python-dotenv = "*"
 undetected-chromedriver = "^3.5.5"
+mailjet-rest = "*"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "*"
