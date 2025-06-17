@@ -9,9 +9,9 @@ Automated data scraping engine built for the beeMôn technical challenge. It sup
 - Stores data in MongoDB and local files
 - Screenshot capture of scraped pages
 - Optional email/Telegram notifications
-- Dynamic CLI scheduling (`--at`)
+- Dynamic CLI scheduling (`--at`) with email notification (`--notify-to`)
 - Pandas dataframe summaries
-- Fully dockerized and tested (100% coverage)
+- Fully dockerized and tested
 
 ## Running Tests
 
