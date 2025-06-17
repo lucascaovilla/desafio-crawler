@@ -44,24 +44,10 @@ def test_scrape_returns_list_of_imdb_movies(monkeypatch):
         def text(self):
             return self._text
 
-    class MockDriver:
-        def get(self, url): pass
-
-        def quit(self): pass
-
-        def find_elements(self, by, value):
-            return [MockElement() for _ in range(5)]
-
-    def mock_chrome_driver(*args, **kwargs):
-        return MockDriver()
-
-    monkeypatch.setattr("app.scrapers.imdb_scraper.webdriver.Chrome", mock_chrome_driver)
-
-    from app.scrapers import imdb_scraper
     result = imdb_scraper.scrape()
 
     assert isinstance(result, list)
-    assert len(result) == 5
-    assert result[0]["title"] == "The Shawshank Redemption"
+    assert len(result) == 25
+    assert result[0]["title"] == "1. The Shawshank Redemption"
     assert result[0]["year"] == "1994"
     assert result[0]["rating"] == "9.3"

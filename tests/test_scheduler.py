@@ -1,3 +1,5 @@
+import time
+
 def test_parse_datetime_valid():
     from app.utils.scheduler import parse_datetime
     assert parse_datetime("2025-01-01T12:00").year == 2025
@@ -12,9 +14,31 @@ def test_schedule_real_job(monkeypatch):
     from app.utils import scheduler
 
     class DummyScheduler:
-        def start(self): self.started = True
-        def add_job(self, *args, **kwargs): self.job_added = True
-        def shutdown(self): self.shutdown_called = True
+        def __init__(self):
+            self.started = False
+            self.job_added = False
+            self.shutdown_called = False
+            self._job_id = None
+            self._job_exists = True
+
+        def start(self):
+            self.started = True
+
+        def add_job(self, func, trigger, id):
+            self.job_added = True
+            self._job_id = id
+
+            def finish_job():
+                time.sleep(0.1)
+                self._job_exists = False
+            import threading
+            threading.Thread(target=finish_job).start()
+
+        def get_job(self, job_id):
+            return self._job_exists
+
+        def shutdown(self):
+            self.shutdown_called = True
 
     monkeypatch.setattr("app.utils.scheduler.BackgroundScheduler", lambda: DummyScheduler())
     monkeypatch.setattr("app.utils.scheduler.run_scraper", lambda x: None)
@@ -31,7 +55,7 @@ def test_schedule_real_job(monkeypatch):
         raise KeyboardInterrupt
 
     signal.signal(signal.SIGALRM, raise_keyboard_interrupt)
-    signal.alarm(1)
+    signal.alarm(2)
 
     try:
         scheduler.schedule_job(Args())

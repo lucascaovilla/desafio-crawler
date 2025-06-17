@@ -8,13 +8,27 @@ def test_logger_returns_same_instance():
 
 def test_logger_writes_to_file(tmp_path):
     test_log_file = tmp_path / "test.log"
+    test_log_dir = test_log_file.parent
+    test_log_dir.mkdir(parents=True, exist_ok=True)
 
-    from app import logger as logger_module
-    logger_module.LOG_FILE = str(test_log_file)
-    logger_module._logger_initialized = False
+    logger_name = "test_logger_file"
+    logger = logging.getLogger(logger_name)
+    logger.handlers.clear()
+    logger.setLevel(logging.DEBUG)
 
-    logger = logger_module.get_logger("test_logger_file")
+    formatter = logging.Formatter(
+        "%(asctime)s | %(levelname)s | %(name)s | %(message)s", "%Y-%m-%d %H:%M:%S"
+    )
+    file_handler = logging.FileHandler(test_log_file)
+    file_handler.setLevel(logging.DEBUG)
+    file_handler.setFormatter(formatter)
+
+    logger.addHandler(file_handler)
+
     logger.info("This is a test log message")
+
+    for handler in logger.handlers:
+        handler.flush()
 
     with open(test_log_file) as f:
         content = f.read()

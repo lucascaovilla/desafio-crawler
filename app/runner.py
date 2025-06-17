@@ -43,10 +43,15 @@ def run_scraper(args):
 
     except Exception as e:
         logger.exception("Failed to run scraper")
+        raise
 
 def show_data(args):
     try:
         data = db.fetch_all(args.site)
+        if not data:
+            print("No data available.")
+            return
+
         df = pd.DataFrame(data)
 
         if args.all:
@@ -60,3 +65,4 @@ def show_data(args):
         logger.info(f"Displayed data for site: {args.site}")
     except Exception as e:
         logger.exception("Failed to show data")
+        print("An error occurred while displaying data.")

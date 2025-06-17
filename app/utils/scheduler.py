@@ -14,10 +14,12 @@ def schedule_job(args):
 
     if dt < now:
         logger.error(f"Cannot schedule job in the past: {dt.isoformat()} < {now.isoformat()}")
+        print(f"Cannot schedule job in the past: {dt.isoformat()} < {now.isoformat()}")
         return
 
     if args.dry_run:
         logger.info(f"[Dry-run] Would schedule job for site '{args.site}' at '{dt.isoformat()}'")
+        print(f"[Dry-run] Would schedule job for site '{args.site}' at '{dt.isoformat()}'")
         return
 
     job_id = f"{args.site}_{dt.isoformat()}"
